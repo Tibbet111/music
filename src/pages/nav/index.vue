@@ -1,11 +1,15 @@
 <template>
   <div>
     <nav class="nav-wrapper flex">
-      <div class="nav-left">
+      <div class="nav-left" @click="SHOW_LOGIN">
         <i class="nav iconnav ripple"></i>
       </div>
       <ul class="nav-center flex jc-around">
-          <router-link tag="li" v-for="item in menu" :key="item.title" :to="item.path" :class="{active:$route.path===item.path}">{{item.title}}</router-link>
+          <router-link tag="li"
+          v-for="item in menu"
+          :key="item.title"
+          :to="item.path"
+          :class="{active:$route.path===item.path}">{{item.title}}</router-link>
       </ul>
       <div class="nav-right flex jc-end">
         <i class="nav iconsousuo ripple"></i>
@@ -14,12 +18,18 @@
     <keep-alive>
       <router-view></router-view>
     </keep-alive>
+    <login-page></login-page>
   </div>
 </template>
 
 <script>
+import loginPage from './components/loginPage'
+import { mapMutations } from 'vuex'
 export default {
   name: '',
+  components: {
+    loginPage
+  },
   data () {
     return {
       menu: [
@@ -30,7 +40,9 @@ export default {
       ]
     }
   },
-  methods: {}
+  methods: {
+    ...mapMutations(['SHOW_LOGIN'])
+  }
 }
 </script>
 
@@ -42,7 +54,7 @@ export default {
   align-items: center;
   position: sticky;
   top: 0;
-  z-index: 999;
+  z-index: 20;
   background-color: #fff;
   .nav-right {
     flex: 2;
@@ -61,5 +73,8 @@ export default {
   .nav-left {
     flex: 2;
   }
+}
+.nav{
+  font-size: .4rem;
 }
 </style>

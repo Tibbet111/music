@@ -11,7 +11,7 @@ html {
     height: 100vh;
     font-size: 14vw;
     -webkit-tap-highlight-color: transparent;
-  }
+}
 
 body {
     font-family: Arial, "Microsoft Yahei", "Helvetica Neue", Helvetica, sans-serif;
@@ -32,7 +32,7 @@ figcaption,
 hgroup,
 details,
 menu {
-  display: block
+    display: block
 }
 
 ul {
@@ -43,11 +43,12 @@ a {
     color: #25a4bb;
     text-decoration: none;
 }
-.flex{
+
+.flex {
     display: flex;
 }
 
-.ai-center{
+.ai-center {
     align-items: center;
 }
 
@@ -60,17 +61,22 @@ a {
     overflow: hidden;
     /*! autoprefixer: off */
     -webkit-box-orient: vertical;
-  }
+}
 
-  // 单行文字打点
+// 单行文字打点
 .ellipsis {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-  }
+}
 
-@each $key,$value in $flex {
-    .jc-#{$key}{
+.border-bottom {
+    border-bottom: 1px solid #eaeaea;
+}
+
+@each $key,
+$value in $flex {
+    .jc-#{$key} {
         justify-content: $value;
     }
 }
