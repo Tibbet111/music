@@ -26,7 +26,7 @@ export default {
   methods: {
     ...mapMutations(['TOGGLE_MODE']),
     logout () {
-
+      this.$emit('logout')
     }
   },
   computed: {

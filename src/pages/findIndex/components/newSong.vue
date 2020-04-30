@@ -27,6 +27,7 @@
 <script>
 import songCard from '../../../components/song-card'
 import pageLoading from '../../../components/pageLoading'
+import { randomArr } from '../../../utils/randomArr'
 export default {
   name: '',
   components: {
@@ -42,26 +43,17 @@ export default {
     }
   },
   methods: {
-    random (arr, num) {
-      const newArr = []
-      for (let i = 0; i < 3; i++) {
-        const random = Math.floor(Math.random() * num) + 1
-        const item = arr.find((v, i) => i === random)
-        newArr.push(item)
-      }
-      return newArr
-    },
     async getNewSong () {
       const res = await this.$api.get('/top/song')
       const arr = res.data.data
-      const newSongs = this.random(arr, 100)
+      const newSongs = randomArr(arr, 3)
       this.newSongs = newSongs
       this.load = false
     },
     async getNewDish () {
       const res = await this.$api.get('/top/album')
       const arr = res.data.albums
-      const newDish = this.random(arr, 50)
+      const newDish = randomArr(arr, 3)
       this.newDish = newDish
       this.load = false
     }

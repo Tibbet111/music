@@ -1,10 +1,10 @@
 <template>
   <div class="login-menu">
-      <login-top></login-top>
+      <login-top :loginStatus="loginStatus"></login-top>
       <login-icon></login-icon>
       <login-icon-top></login-icon-top>
       <login-icon-bottom></login-icon-bottom>
-      <login-bottom></login-bottom>
+      <login-bottom @logout="logout"></login-bottom>
   </div>
 </template>
 
@@ -14,6 +14,7 @@ import loginIcon from './login-icon'
 import loginIconTop from './login-icons-top'
 import loginIconBottom from './login-icon-bottom'
 import loginBottom from './login-bottom'
+import { mapMutations } from 'vuex'
 export default {
   components: {
     loginTop,
@@ -24,9 +25,21 @@ export default {
   },
   name: '',
   data () {
-    return {}
+    return {
+      loginStatus: Number(localStorage.getItem('loginStatus'))
+    }
   },
-  methods: {}
+  methods: {
+    ...mapMutations(['LOGIN_STATUS']),
+    async logout () {
+      const res = await this.$api.get('/logout')
+      if (res.data.code === 200) {
+        localStorage.setItem('loginStatus', 0)
+        this.LOGIN_STATUS(0)
+        location.reload()
+      }
+    }
+  }
 }
 </script>
 

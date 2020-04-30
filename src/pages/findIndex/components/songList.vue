@@ -10,7 +10,8 @@
         :key="item.id"
         :picUrl="item.picUrl"
         :name="item.name"
-        :playCount="item.playCount"></song-card>
+        :playCount="item.playCount"
+        :albumId="item.id"></song-card>
       </div>
   </div>
 </template>

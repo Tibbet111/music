@@ -30,5 +30,17 @@ export default {
     } else if (state.icontaiyang) {
       this._mutations.TO_SUN[0](state)
     }
+  },
+  // 用户登录状态
+  LOGIN_STATUS (state, num) {
+    state.loginState = num
+  },
+  // 用户uid
+  ACCOUNT_UID (state, id) {
+    state.accountUid = id
+  },
+  // 用户等级
+  ACCOUNT_LEVEL (state, num) {
+    state.level = num
   }
 }

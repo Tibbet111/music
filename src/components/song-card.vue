@@ -5,7 +5,6 @@
            <i class="card cardbofang"></i>
             {{playCount | setPlayCount}}
           </span>
-          <div class="shadow"></div>
           <img :src="picUrl">
           <p class="twoLinesEllipsis">{{name}}</p>
         </div>
@@ -18,7 +17,8 @@ export default {
   props: {
     playCount: { type: Number },
     name: { type: String },
-    picUrl: { type: String }
+    picUrl: { type: String },
+    id: { type: Number }
   },
   data () {
     return {
@@ -55,13 +55,6 @@ export default {
           i{
             font-size: 0.2rem;
           }
-        }
-        .shadow{
-          position: absolute;
-          height: 2.1rem;
-          width: 100%;
-          box-shadow: 0 15px 21px -9px#999999 inset;
-          border-radius: .2rem;
         }
         img{
           width: 100%;

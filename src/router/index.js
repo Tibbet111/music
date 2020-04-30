@@ -42,6 +42,25 @@ const routes = [
   {
     path: '/idx',
     component: () => import('../pages/idx/index.vue')
+  },
+  {
+    path: '/login',
+    component: () => import('./../pages/loginIndex/index.vue'),
+    redirect: '/account',
+    children: [
+      {
+        path: '/account',
+        component: () => import('../pages/loginIndex/components/phoneAccount.vue')
+      },
+      {
+        path: '/pwd',
+        component: () => import('../pages/loginIndex/components/phonePwd.vue')
+      },
+      {
+        path: '/verify',
+        component: () => import('../pages/loginIndex/components/phoneVerify.vue')
+      }
+    ]
   }
 ]
 
