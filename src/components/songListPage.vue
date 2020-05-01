@@ -201,6 +201,7 @@ export default {
     },
     async addCollection () {
       const id = this.albumId
+      // eslint-disable-next-line no-unused-vars
       const res = await this.$api.get('/playlist/subscribe', {
         params: {
           t: 1,
@@ -212,6 +213,7 @@ export default {
     },
     async deleteCollection () {
       const id = this.albumId
+      // eslint-disable-next-line no-unused-vars
       const res = await this.$api.get('/playlist/subscribe', {
         params: {
           t: 2,
