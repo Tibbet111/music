@@ -42,5 +42,9 @@ export default {
   // 用户等级
   ACCOUNT_LEVEL (state, num) {
     state.level = num
+  },
+  // 设置AlbumId
+  SET_USING_ALBUM_ID (state, albumId) {
+    state.albumId = albumId
   }
 }

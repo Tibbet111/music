@@ -61,6 +61,15 @@ const routes = [
         component: () => import('../pages/loginIndex/components/phoneVerify.vue')
       }
     ]
+  },
+  {
+    path: '/albumPage/:albumId/:name/:imgUrl',
+    name: 'albumPage',
+    component: () => import('../pages/albumPage.vue/index.vue')
+  },
+  {
+    path: '/comments',
+    component: () => import('../pages/commentsIndex/index.vue')
   }
 ]
 

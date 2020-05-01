@@ -1,5 +1,5 @@
 <template>
-  <div style="width:30%">
+  <div style="width:30%" @click="jumpToDetail(idx)">
         <div class="playlist">
           <span class="tag" v-if="playCount">
            <i class="card cardbofang"></i>
@@ -18,10 +18,18 @@ export default {
     playCount: { type: Number },
     name: { type: String },
     picUrl: { type: String },
-    id: { type: Number }
+    albumId: { type: Number },
+    idx: { type: String }
   },
   data () {
     return {
+      jumpToDetail (idx) {
+        if (!idx) {
+          if (this.albumId) {
+            this.$router.push({ name: 'albumPage', params: { albumId: this.albumId, name: this.name, imgUrl: this.picUrl } })
+          }
+        }
+      }
     }
   },
   filters: {

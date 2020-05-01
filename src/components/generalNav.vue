@@ -1,13 +1,27 @@
 <template>
-  <nav class="nav flex ai-center border-bottom">
+  <nav class="nav flex ai-center">
+    <div class="blur-bg"
+    v-if="imgUrl"
+    :style="{backgroundImage:'url('+imgUrl+')',opacity}"></div>
       <i class="phone iconzuojiantou" @click="goBack"></i>
       <slot></slot>
+      <slot name="artist"></slot>
   </nav>
 </template>
 
 <script>
 export default {
   name: '',
+  props: {
+    imgUrl: {
+      type: String,
+      default: ''
+    },
+    opacity: {
+      type: String,
+      default: '0'
+    }
+  },
   data () {
     return {
     }
@@ -28,6 +42,19 @@ export default {
   height: 1rem;
   width: 100%;
   line-height: 1rem;
+  overflow: hidden;
+  .blur-bg{
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: -1;
+    background-size: cover;
+    background-position: center bottom;
+    filter: blur(50px);
+    margin: -100px;
+  }
   .phone{
     font-size: 0.7rem;
     padding-right: 5px;
