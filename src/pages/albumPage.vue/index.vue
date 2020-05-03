@@ -21,14 +21,15 @@
     :artists="item.ar"
     :albumName="item.al.name"
     :num="index+1"
-    @beginSong="setAudioList(item, index)"></song-list>
+    @beginSong="setAudioList(item, index)"
+    :nowSong="item.id === playingSong.id"></song-list>
   </song-list-page>
 </template>
 
 <script>
 import songListPage from '../../components/songListPage'
 import songList from '../../components/songList'
-import { mapMutations } from 'vuex'
+import { mapMutations, mapActions, mapGetters } from 'vuex'
 export default {
   name: 'albumPage',
   components: {
@@ -45,12 +46,21 @@ export default {
       albumInfo: {}
     }
   },
+  computed: {
+    ...mapGetters({
+      playingSong: 'PLAYING_SONG'
+    })
+  },
   methods: {
     ...mapMutations({
       setAlbumId: 'SET_USING_ALBUM_ID'
     }),
+    ...mapActions(['selectPlay']),
     setAudioList (item, index) {
-
+      this.selectPlay({
+        list: this.albumInfo.tracks || this.albumInfo.songs,
+        index
+      })
     },
     getParams () {
       this.albumId = this.$route.params.albumId

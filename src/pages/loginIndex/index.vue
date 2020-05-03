@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <login-nav>
+    <login-nav @returnPage="returnPage">
       <span class="text">手机号登录</span>
     </login-nav>
     <router-view></router-view>
@@ -18,7 +18,11 @@ export default {
     return {
     }
   },
-  methods: {}
+  methods: {
+    returnPage () {
+      this.$router.go(-1)
+    }
+  }
 }
 </script>
 

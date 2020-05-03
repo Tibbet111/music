@@ -46,5 +46,33 @@ export default {
   // 设置AlbumId
   SET_USING_ALBUM_ID (state, albumId) {
     state.albumId = albumId
+  },
+  // 播放状态
+  SET_PLAY_STATUS (state, flag) {
+    state.playStatus = flag
+  },
+  // 是否全屏
+  SET_FULLSCREEN (state, flag) {
+    state.fullScreen = flag
+  },
+  // 设置播放列表信息
+  SET_AUDIO_LIST (state, list) {
+    state.audioList = list
+  },
+  // 当前播放索引
+  SET_PLAYING_INDEX (state, index) {
+    state.playingIndex = index
+  },
+  // 当前播放列表
+  SET_PLAY_LIST (state, list) {
+    state.playList = list
+  },
+  // 当前播放模式
+  SET_AUDIO_MODE (state, mode) {
+    state.mode = mode
+  },
+  // 设置是否显示轮盘播放页面
+  SET_PLAYING_SHOW (state, flag) {
+    state.playingShow = flag
   }
 }

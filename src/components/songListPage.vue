@@ -7,14 +7,16 @@
       <global-nav v-if="!isAlbum"
       class="fixed"
       :imgUrl="imgUrl"
-      :opacity="opacity">
+      :opacity="opacity"
+      @returnPage="returnPage">
       <span v-show="listFixed">{{iTitle}}</span>
       </global-nav>
       <!-- 歌单导航 -->
       <global-nav v-if="isAlbum"
       class="fixed"
       :imgUrl="imgUrl"
-      :opacity="opacity">
+      :opacity="opacity"
+      @returnPage="returnPage">
       <span>{{iTitle}}</span>
       </global-nav>
       <!-- 每日推荐日期 -->
@@ -188,6 +190,9 @@ export default {
     }
   },
   methods: {
+    returnPage () {
+      this.$router.go(-1)
+    },
     goComments () {
       this.$router.push({
         path: '/comments',

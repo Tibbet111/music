@@ -1,20 +1,20 @@
 <template>
-  <div class="list-item flex jc-between ai-center" @click="startSong">
+  <div class="list-item flex jc-between ai-center" @click="startSong" :class="{active:nowSong}">
     <!-- 图片 -->
     <div class="img-info" v-if="songImg">
       <img v-lazy="songImg">
     </div>
     <div class="index" v-if="num">
-      <span>{{num}}</span>
+      <span :style="{'color':nowSong?'#dd001b':'#ccc'}">{{num}}</span>
     </div>
     <!-- 歌曲信息 -->
     <div class="song-info">
-      <p class="song-name ellipsis" :class="{twoLine}">
+      <p class="song-name ellipsis" :class="{twoLine}" :style="{'color':nowSong?'#dd001b':''}">
         {{songName}}
         <span class="alia" v-show="alia">({{alia}})</span>
         <span v-if="transName" class="transName">{{transName}}</span>
       </p>
-      <p class="song-artist ellipsis" v-if="type==='songList'">
+      <p class="song-artist ellipsis" v-if="type==='songList'" :style="{'color':nowSong?'#dd001b':'#ccc'}">
         <span>
           <span class="artist" v-for="item in artists" :key="item.id">{{item.name}}</span>
         </span>
@@ -40,11 +40,12 @@ export default {
     transName: { type: String, default: '' },
     type: { type: String, default: 'songList' },
     twoLine: { type: Boolean },
-    num: { type: Number }
-    // nowSong: { type: Boolean, default: false }
+    num: { type: Number },
+    nowSong: { type: Boolean, default: false }
   },
   data () {
     return {
+      color: '#dd001b'
     }
   },
   methods: {
@@ -59,6 +60,9 @@ export default {
 @import url("//at.alicdn.com/t/font_1380711_cftenqb5flc.css");
 .list-item{
   height: 1.2rem;
+  &.active{
+    color: #dd001b;
+  }
   .img-info{
     width: 0.7rem;
     height: 0.7rem;

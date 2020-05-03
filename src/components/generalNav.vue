@@ -1,5 +1,5 @@
 <template>
-  <nav class="nav flex ai-center">
+  <nav class="nav flex ai-center" :class="{height: height === 'all'}">
     <div class="blur-bg"
     v-if="imgUrl"
     :style="{backgroundImage:'url('+imgUrl+')',opacity}"></div>
@@ -20,6 +20,10 @@ export default {
     opacity: {
       type: String,
       default: '0'
+    },
+    height: {
+      type: String,
+      default: 'all'
     }
   },
   data () {
@@ -28,7 +32,7 @@ export default {
   },
   methods: {
     goBack () {
-      this.$router.go(-1)
+      this.$emit('returnPage')
     }
   }
 }
@@ -39,10 +43,12 @@ export default {
 @import url("//at.alicdn.com/t/font_1351323_oxqdjg3rufq.css");
 
 .nav{
-  height: 1rem;
   width: 100%;
-  line-height: 1rem;
   overflow: hidden;
+  &.height{
+    height: 1rem;
+    line-height: 1rem;
+  }
   .blur-bg{
     position: absolute;
     top: 0;
