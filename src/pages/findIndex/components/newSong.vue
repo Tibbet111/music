@@ -13,13 +13,15 @@
         <song-card v-for="item in newDish"
         :key="item.id"
         :picUrl="item.picUrl"
-        :name="item.name"></song-card>
+        :name="item.name"
+        :albumId="item.id"></song-card>
       </div>
       <div class="content flex jc-around" v-show="type==='newSong'">
         <song-card v-for="item in newSongs"
         :key="item.id"
         :picUrl="item.album.picUrl"
-        :name="item.name"></song-card>
+        :name="item.name"
+        @click.native="beginAudio(item)"></song-card>
       </div>
   </div>
 </template>
@@ -28,6 +30,7 @@
 import songCard from '../../../components/song-card'
 import pageLoading from '../../../components/pageLoading'
 import { randomArr } from '../../../utils/randomArr'
+import { mapActions } from 'vuex'
 export default {
   name: '',
   components: {
@@ -43,6 +46,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['addToPlayList']),
     async getNewSong () {
       const res = await this.$api.get('/top/song')
       const arr = res.data.data
@@ -56,6 +60,9 @@ export default {
       const newDish = randomArr(arr, 3)
       this.newDish = newDish
       this.load = false
+    },
+    beginAudio (item) {
+      this.addToPlayList(item)
     }
   },
   mounted () {

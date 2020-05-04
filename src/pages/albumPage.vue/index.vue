@@ -14,6 +14,7 @@
   :trackCount="albumInfo.trackCount ? albumInfo.trackCount : albumInfo.album ? albumInfo.album.size : 0"
   :subscribedCount="albumInfo.subscribedCount"
   :isSubIn="albumInfo.subscribed"
+  @startPlayAll="startPlay"
   >
   <song-list v-for="(item,index) in albumInfo.tracks || albumInfo.songs"
     :key="item.id"
@@ -55,7 +56,7 @@ export default {
     ...mapMutations({
       setAlbumId: 'SET_USING_ALBUM_ID'
     }),
-    ...mapActions(['selectPlay']),
+    ...mapActions(['selectPlay', 'startPlayAll']),
     setAudioList (item, index) {
       this.selectPlay({
         list: this.albumInfo.tracks || this.albumInfo.songs,
@@ -72,6 +73,11 @@ export default {
       const res = await this.$api.get(`/playlist/detail?id=${id}`)
       this.load = false
       this.albumInfo = res.data.playlist
+    },
+    startPlay () {
+      this.startPlayAll({
+        list: this.albumInfo.tracks || this.albumInfo.songs
+      })
     }
   },
   created () {

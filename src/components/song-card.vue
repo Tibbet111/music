@@ -23,13 +23,6 @@ export default {
   },
   data () {
     return {
-      jumpToDetail (idx) {
-        if (!idx) {
-          if (this.albumId) {
-            this.$router.push({ name: 'albumPage', params: { albumId: this.albumId, name: this.name, imgUrl: this.picUrl } })
-          }
-        }
-      }
     }
   },
   filters: {
@@ -47,6 +40,13 @@ export default {
     }
   },
   methods: {
+    jumpToDetail (idx) {
+      if (!idx) {
+        if (this.albumId) {
+          this.$router.push({ name: 'albumPage', params: { albumId: this.albumId, name: this.name, imgUrl: this.picUrl } })
+        }
+      }
+    }
   }
 }
 </script>

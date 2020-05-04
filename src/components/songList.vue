@@ -70,6 +70,7 @@ export default {
     img{
       border-radius: .1rem;
       height: 100%;
+      width: 100%;
     }
   }
   .index{

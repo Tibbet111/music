@@ -74,7 +74,7 @@
     </div>
     <!-- 一些标题选项 -->
     <div class="container-title flex jc-between ai-center" :class="listFixed?'listFixed':''">
-      <span>
+      <span @click="beginAudio">
         <i class="date-song cbofang"></i>
           播放全部
         <span class="count" v-if="isAlbum">(共{{trackCount}}首)</span>
@@ -97,6 +97,7 @@
     <!-- 内容 -->
     <div class="container-content"
     :style="[{'marginTop' : top}]"
+    :class="[AUDIO_LIST.length?'paddingBottom':'']"
     v-show="!load">
       <slot></slot>
     </div>
@@ -107,6 +108,7 @@
 <script>
 import globalNav from './generalNav'
 import pageLoading from './pageLoading'
+import { mapGetters } from 'vuex'
 const REM = document.body.clientWidth * 0.14
 const setNum = function (val) {
   if (!val) {
@@ -193,6 +195,9 @@ export default {
     returnPage () {
       this.$router.go(-1)
     },
+    beginAudio () {
+      this.$emit('startPlayAll')
+    },
     goComments () {
       this.$router.push({
         path: '/comments',
@@ -259,6 +264,7 @@ export default {
     }
   },
   computed: {
+    ...mapGetters(['AUDIO_LIST']),
     day () {
       const date = new Date()
       return date.getDate() < 10 ? '0' + date.getDate() : date.getDate()
@@ -444,6 +450,9 @@ export default {
     width: 100%;
     padding: .1rem .23rem;
     background-color: #fff;
+    &.paddingBottom{
+      padding-bottom: 1rem;
+    }
   }
 }
 </style>

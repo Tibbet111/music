@@ -75,7 +75,7 @@ export default {
 <style lang='scss' scoped>
   .wrapper{
     .audio{
-    font-size: .6rem;
+    font-size: .7rem;
     color:#bdc3c7;
     &.audioshoucang{
       color:#e74c3c;

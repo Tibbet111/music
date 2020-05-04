@@ -4,7 +4,8 @@
     height="3.6rem"
     title="每日推荐"
     :isAlbum="false"
-    :load="load">
+    :load="load"
+    @startPlayAll="startPlay">
     <song-list v-for="(item,index) in songList"
     :key="item.id"
     :artists="item.artists"
@@ -12,7 +13,8 @@
     :songImg="item.album.picUrl"
     :albumName="item.album.name"
     :transName="item.transName"
-    @beginSong="setAudioList(item, index)"></song-list>
+    @beginSong="setAudioList(item, index)"
+    :nowSong="item.id === playingSong.id"></song-list>
     <should-login v-show="isLogin == 0"></should-login>
     </song-list-page>
 </template>
@@ -21,7 +23,7 @@
 import songListPage from '../../components/songListPage'
 import songList from '../../components/songList'
 import shouldLogin from '../../components/shouldLogin'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 export default {
   name: '',
   components: {
@@ -37,6 +39,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['selectPlay', 'startPlayAll']),
     getRecSongs () {
       // eslint-disable-next-line eqeqeq
       if (Number(this.isLogin) !== 0) {
@@ -53,12 +56,21 @@ export default {
       }
     },
     setAudioList (item, index) {
-      console.log(item)
+      this.selectPlay({
+        list: this.songList,
+        index
+      })
+    },
+    startPlay () {
+      this.startPlayAll({
+        list: this.songList
+      })
     }
   },
   computed: {
     ...mapGetters({
-      isLogin: 'LOGIN_STATE'
+      isLogin: 'LOGIN_STATE',
+      playingSong: 'PLAYING_SONG'
     })
   },
   created () {

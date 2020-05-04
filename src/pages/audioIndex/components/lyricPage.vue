@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper" ref="lyric">
     <div class="full" v-if="noLyric">{{noLyricText}}</div>
-    <ul :style="{marginTop: marginTop}" v-if="!noLyric">
+    <ul  v-if="!noLyric">
       <li v-for="(item,index) in lyricArray"
       :key="item.time"
       :class="{active:nowLyricIndex === index}"
@@ -31,7 +31,6 @@ export default {
   },
   data () {
     return {
-      marginTop: '0rem'
     }
   },
   filters: {

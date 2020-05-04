@@ -35,5 +35,28 @@ export default {
     commit('SET_PLAYING_INDEX', index)
     commit('SET_PLAY_STATUS', true)
     commit('SET_FULLSCREEN', true)
+  },
+  // 播放全部
+  startPlayAll ({ commit }, { list }) {
+    commit('SET_AUDIO_LIST', list)
+    commit('SET_PLAYING_INDEX', 0)
+    commit('SET_PLAY_LIST', list)
+    commit('SET_PLAY_STATUS', true)
+    commit('SET_FULLSCREEN', true)
+    commit('SET_AUDIO_MODE', 0)
+  },
+  // 向播放列表添加歌曲
+  addToPlayList ({ commit, state }, song) {
+    const audioList = state.audioList
+    const playList = state.playList
+    // 查找列表中是否有插入的歌曲
+    const findSongIndex = findIndex(audioList, song)
+    if (findSongIndex > -1) {
+      commit('SET_PLAYING_INDEX', findSongIndex)
+    }
+    playList.unshift(song)
+    audioList.unshift(song)
+    commit('SET_PLAYING_INDEX', 0)
+    commit('SET_PLAY_STATUS', true)
   }
 }

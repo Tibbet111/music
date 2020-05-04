@@ -1,6 +1,7 @@
 <template>
   <div class="audioPage">
-    <div class="full" v-show="isFull">
+    <transition name="audio">
+      <div class="full" v-show="isFull">
       <audio-nav class="color" height="0" @returnPage="close">
         <scroll-text :name="name" :artist="artist"></scroll-text>
       </audio-nav>
@@ -25,6 +26,15 @@
                        :mode="mode"
                        @showAudioList="showAudioList"></function-button>
     </div>
+    </transition>
+    <small-audio v-show="!isFull"
+           :imgUrl="imgUrl"
+           :name="name"
+           :artist="artist"
+           :albumName="albumName"
+           :lyric="nowLyric"
+           @returnFull="returnFull"
+           @play="toggle"></small-audio>
     <audio ref="audio"
     :src="url"
     autoplay
@@ -43,8 +53,9 @@ import playIcons from './components/playIcons'
 import bar from './components/bar'
 import functionButton from './components/functionButton'
 import lyricPage from './components/lyricPage'
+import smallAudio from './components/small'
 import { randomArr } from '../../utils/randomArr.js'
-import { mapGetters, mapActions, mapMutations } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 export default {
   components: {
     audioNav,
@@ -54,6 +65,7 @@ export default {
     playIcons,
     lyricPage,
     functionButton,
+    smallAudio
   },
   name: '',
   data () {
@@ -98,6 +110,7 @@ export default {
       this.artist = val.album ? val.album.artists : val.ar ? val.ar : ''
       this.name = this.setName(val.name)
       this.allTime = val.duration ? val.duration : val.dt ? val.dt : 0
+      this.albumName = val.al ? val.al.name : val.album ? val.album.name : ''
       this.imgUrl = val.album
         ? val.album.picUrl
         : val.al
@@ -127,6 +140,10 @@ export default {
       const reg = /<\/?.+?\/?>/g
       val = val.replace(reg, '')
       return val
+    },
+    // 恢复全屏
+    returnFull () {
+      this.setFull(true)
     },
     // 看该歌曲是否能播放
     async checkSong (id) {
@@ -230,24 +247,24 @@ export default {
       const braLength = audio.currentTime / audio.duration * 100
       this.setProgress(braLength)
       // 倘若有歌词设置偏移
-      if (!this.nowLyric) {
+      if (!this.noLyric) {
         const playTime = audio.currentTime + this.offsetLyric
         const index = this.getCurrentIndex(playTime, this.ruleLyric)
         this.nowLyricIndex = index
         // 设置歌词显示
         this.showLyric(index, this.ruleLyric)
-        // 设置歌词页面显示柜子，传入当前歌词信息
+        // 设置歌词页面的显示规则,传入当前歌词索引信息
         this.$refs.lyric.setScroll(this.nowLyricIndex)
       }
     },
     // 获取当前歌词索引
     getCurrentIndex (time, lyricArray) {
-      for (let i = lyricArray.length - 2; i >= 0; i--) {
-        const ele = lyricArray[i].time
-        if (time > ele) {
+      for (let i = lyricArray.length - 1; i >= 0; i--) {
+        const element = lyricArray[i].time
+        if (time > element) {
           return i
         }
-        if (!ele) {
+        if (!element) {
           return -1
         }
       }
@@ -385,7 +402,7 @@ export default {
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 19;
+  z-index: 25;
   background-color: #7f8c8d;
   padding: 0 .23rem;
   .color {
@@ -393,4 +410,10 @@ export default {
     color: #fff;
   }
 }
+ .audio-enter,.audio-leave-to{
+    transform: translateY(100vh);
+  }
+  .audio-enter-active,.audio-leave-active{
+    transition: transform linear .3s;
+  }
 </style>
