@@ -46,6 +46,7 @@ export default {
           this.$router.push({ name: 'albumPage', params: { albumId: this.albumId, name: this.name, imgUrl: this.picUrl } })
         }
       }
+      this.$emit('showIdxPage')
     }
   }
 }

@@ -32,8 +32,23 @@ const routes = [
     component: () => import('../pages/dateRecommend/index.vue')
   },
   {
-    path: '/recommend',
-    component: () => import('../pages/recommend/index.vue')
+    path: '/playlist',
+    component: () => import('../pages/recommend/index.vue'),
+    redirect: '/recommend',
+    children: [
+      {
+        path: '/quality',
+        component: () => import('../pages/recommend/fine/index.vue')
+      },
+      {
+        path: '/recommend',
+        component: () => import('../pages/recommend/recommend/index.vue')
+      },
+      {
+        path: '/general/:category',
+        component: () => import('../pages/recommend/general/index.vue')
+      }
+    ]
   },
   {
     path: '/dj',

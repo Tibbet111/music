@@ -57,7 +57,6 @@ export default {
       this.touch.width = this.$refs.barBg.clientWidth
     },
     clickBg (e) {
-      console.log(this.$refs.barBg.offsetLeft)
       this.touch.width = this.$refs.barBg.clientWidth
       const left = this.$refs.barBg.offsetLeft
       this.touch.endX = e.changedTouches[0].pageX - left

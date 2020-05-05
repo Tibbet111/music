@@ -2,7 +2,7 @@
   <div class="container">
       <div class="title flex jc-between ai-center">
           <div class="font">推荐歌单</div>
-          <div class="button">歌单广场</div>
+          <div class="button" @click="go">歌单广场</div>
       </div>
       <page-loading style="height:5rem" v-show="load"></page-loading>
       <div class="content flex jc-around">
@@ -36,6 +36,9 @@ export default {
       const res = await this.$api.get('/personalized?limit=6')
       this.playList = res.data.result
       this.load = false
+    },
+    go () {
+      this.$router.push('/playlist')
     }
   },
   mounted () {

@@ -43,7 +43,7 @@ const findIcons = [{
 }, {
   text: '歌单',
   icon: 'find gedan',
-  linkTo: 'recommend'
+  linkTo: 'playlist'
 }, {
   text: '排行榜',
   icon: 'find paixingbang',

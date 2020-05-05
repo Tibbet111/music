@@ -42,7 +42,6 @@ export default {
           this.jugShowFake()
         }, 200)
       } else {
-        console.log('已经清除')
         clearInterval(this.timer)
       }
     },

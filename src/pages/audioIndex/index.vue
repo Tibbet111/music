@@ -152,6 +152,8 @@ export default {
         this.canSong = true
         this.getSongUrl(id)
         this.getSongLyric(id)
+      } else {
+        console.log('该音乐暂时无法播放')
       }
     },
     // 获取歌曲URL
@@ -185,7 +187,7 @@ export default {
         this.noLyricText = '暂时没有歌词'
         this.ruleLyric = []
         this.nowLyric = ''
-        this.nowLyric = true
+        this.noLyric = true
         return
       }
       this.ruleLyric = this.createLrcArray(this.lyric)

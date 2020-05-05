@@ -63,6 +63,7 @@ export default {
     margin: .6rem 0;
     color: #ccc;
     overflow: scroll;
+    &::-webkit-scrollbar{display: none;}
     ul{
       padding-top: 3.5rem;
       text-align: center;
