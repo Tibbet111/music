@@ -54,10 +54,8 @@
 </template>
 
 <script>
-import { audio } from '../../../utils/Mixins'
 import { mapGetters, mapMutations, mapActions } from 'vuex'
 export default {
-  mixins: [audio],
   name: '',
   props: {
     num: {
@@ -66,9 +64,23 @@ export default {
     isShowAudioList: {
       type: Boolean,
       default: false
+    },
+    mode: {
+      type: Number
     }
   },
   computed: {
+    modeClass: function () {
+      switch (this.mode) {
+        case 0: // 列表循环
+          return 'audioxunhuan'
+        case 1: // 单曲循环
+          return 'audiosingle-loop'
+        case 2: // 随机播放
+          return 'audiosuiji'
+      }
+      return ''
+    },
     modeText () {
       switch (this.mode) {
         case 0: // 列表循环
@@ -83,7 +95,7 @@ export default {
     ...mapGetters({
       audioList: 'AUDIO_LIST',
       audioIng: 'PLAYING_SONG',
-      playList: 'PLAY_LIST'
+      playList: 'PLAT_LIST'
     })
   },
   methods: {
@@ -93,6 +105,9 @@ export default {
       } else {
         return artist.ar
       }
+    },
+    changeMode () {
+      this.$emit('changeMode')
     },
     audioThis (item, index) {
       // 随机播放情况
@@ -107,7 +122,7 @@ export default {
       this.setAudioIndex(index)
     },
     ...mapMutations({
-      setAudioIndex: 'SET_AUDIO_INDEX'
+      setAudioIndex: 'SET_PLAYING_INDEX'
     }),
     ...mapActions(['deleteSong'])
   }
@@ -125,13 +140,21 @@ export default {
 .list-show-leave-active {
   transition: transform linear 0.3s;
 }
-
+.mask {
+  position: fixed;
+  z-index: 30;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.7);
+}
 .audio-list {
   width: 100%;
   margin-right: 0.23rem;
   position: fixed;
   bottom: 0;
-  z-index: 20;
+  z-index: 30;
   background-color: #fff;
   border-top-right-radius: 0.5rem;
   border-top-left-radius: 0.5rem;

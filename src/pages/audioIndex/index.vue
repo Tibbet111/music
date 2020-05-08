@@ -27,6 +27,12 @@
                        @showAudioList="showAudioList"></function-button>
     </div>
     </transition>
+    <audio-list :isShowAudioList="isShowAudioList"
+                @showAudioList="showAudioList"
+                :num="playList.length"
+                :mode="mode"
+                @changeMode="changeMode"
+                @empty="empty"></audio-list>
     <small-audio v-show="!isFull"
            :imgUrl="imgUrl"
            :name="name"
@@ -54,6 +60,7 @@ import bar from './components/bar'
 import functionButton from './components/functionButton'
 import lyricPage from './components/lyricPage'
 import smallAudio from './components/small'
+import audioList from './components/audioList';
 import { randomArr } from '../../utils/randomArr.js'
 import { mapGetters, mapMutations } from 'vuex'
 export default {
@@ -65,7 +72,8 @@ export default {
     playIcons,
     lyricPage,
     functionButton,
-    smallAudio
+    smallAudio,
+    audioList
   },
   name: '',
   data () {
@@ -118,6 +126,11 @@ export default {
           : val.album
             ? val.album.artist.img1v1Url : val.coverUrl ? val.coverUrl : ''
       this.checkSong(val.id)
+    },
+    'platList.length': function (nVal) {
+      if (!nVal) {
+        this.isShowAudioList = false
+      }
     }
   },
   methods: {

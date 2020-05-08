@@ -9,6 +9,7 @@
 <script>
 import { findIcons } from '../../../getInfos/getData'
 import icon from '../../../components/icon'
+import { mapActions } from 'vuex'
 export default {
   name: '',
   components: {
@@ -20,15 +21,20 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['startPlayAll']),
     iniData () {
       this.icons = findIcons()
     },
     goPage (link) {
       if (link === 'personalFm') {
-
+        this.getPerSonFm()
       } else {
         this.$router.push(link)
       }
+    },
+    async getPerSonFm () {
+      const res = await this.$api.get('/personal_fm')
+      this.startPlayAll({ list: res.data.data })
     }
   },
   mounted () {

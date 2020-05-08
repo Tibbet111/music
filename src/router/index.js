@@ -3,6 +3,11 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
+const routerPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push (location) {
+  return routerPush.call(this, location).catch(err => err)
+}
+
 const routes = [
   {
     path: '/',
@@ -85,6 +90,15 @@ const routes = [
   {
     path: '/comments',
     component: () => import('../pages/commentsIndex/index.vue')
+  },
+  {
+    path: '/search',
+    component: () => import('../pages/searchIndex/index.vue')
+  },
+  {
+    name: 'searchResult',
+    path: '/searchResult/:result',
+    component: () => import('../pages/searchResult/index.vue')
   }
 ]
 

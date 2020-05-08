@@ -58,5 +58,26 @@ export default {
     audioList.unshift(song)
     commit('SET_PLAYING_INDEX', 0)
     commit('SET_PLAY_STATUS', true)
+  },
+  // 删除
+  deleteSong ({ commit, state }, song) {
+    const audioList = state.audioList.slice()
+    const playList = state.playList.slice()
+    let curIndex = state.playingIndex
+    // 删除的歌曲是当前播放歌曲之前的
+    const beforeIndex = findIndex(audioList, song)
+    audioList.splice(beforeIndex, 1)
+    // 删除是当前播放之后
+    const afterIndex = findIndex(playList, song)
+    playList.splice(afterIndex, 1)
+    if (curIndex > beforeIndex || curIndex === audioList.length) {
+      curIndex--
+    }
+    commit('SET_AUDIO_LIST', audioList)
+    commit('SET_PLAY_LIST', playList)
+    commit('SET_PLAYING_INDEX', curIndex)
+    if (!audioList.length) {
+      commit('SET_PLAY_STATUS', false)
+    }
   }
 }

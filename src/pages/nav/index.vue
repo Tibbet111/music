@@ -11,7 +11,7 @@
           :to="item.path"
           :class="{active:$route.path===item.path}">{{item.title}}</router-link>
       </ul>
-      <div class="nav-right flex jc-end">
+      <div class="nav-right flex jc-end" @click="$router.push('/search')">
         <i class="nav iconsousuo ripple"></i>
       </div>
     </nav>

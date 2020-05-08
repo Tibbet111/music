@@ -73,6 +73,12 @@ a {
 .border-bottom {
     border-bottom: 1px solid #eaeaea;
 }
+.pd23{
+    padding: 0 .23rem;
+}
+i{
+    font-style: normal;
+}
 
 @each $key,
 $value in $flex {
